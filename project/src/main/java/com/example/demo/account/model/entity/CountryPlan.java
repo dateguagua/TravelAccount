@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Data
-@Table(name = "Country_Plan")
+@Table(name = "country_Plan")
 public class CountryPlan {
 
 	@Id

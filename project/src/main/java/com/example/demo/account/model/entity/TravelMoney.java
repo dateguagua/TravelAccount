@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Travel_money")
+@Table(name = "travel_money")
 public class TravelMoney {
 
 	@Id

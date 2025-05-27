@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity //代表對應到資料庫的紀錄
 @Data
-@Table(name = "Category") //對應到資料表哪一格
+@Table(name = "category") //對應到資料表哪一格
 public class Category {
 
 	@Id
