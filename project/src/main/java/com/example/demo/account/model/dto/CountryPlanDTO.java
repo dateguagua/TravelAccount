@@ -10,9 +10,8 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 @Data
-@Table(name = "Country_Plan")
+
 public class CountryPlanDTO {
 
 	private Integer countryPlanId;
