@@ -1,31 +1,26 @@
 package com.example.demo.account.model.entity;
 
-
 import java.time.LocalDateTime;
 
-
 import jakarta.persistence.Entity;
-
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
 @Data
-@Table(name = "Category")
-public class Category {
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "Users")
+public class Users {
 
-	@Id
-	private Integer categoryId;
-	private String category;
+	private Integer userId;
+	private String userName;
+	private String email;
+	private String password;
+	private String hashSalt;
+	private Boolean complete;
 	
 	
-
 }
-
