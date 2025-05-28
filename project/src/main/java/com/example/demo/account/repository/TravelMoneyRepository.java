@@ -13,7 +13,7 @@ import com.example.demo.account.model.entity.CountryPlan;
 import com.example.demo.account.model.entity.Journey;
 
 @Repository
-public interface JourneyRepository extends JpaRepository<Journey, Integer>{
+public interface TravelMoneyRepository extends JpaRepository<Journey, Integer>{
 	
 	//取得行程計劃
 	@Query(value = "select journey_id, attraction, country_plan_id, location, memo, days, time, is_delete from journey where journey_id =:journeyId", nativeQuery = true)
