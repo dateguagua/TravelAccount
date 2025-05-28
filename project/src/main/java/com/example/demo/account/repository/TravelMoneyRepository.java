@@ -11,12 +11,13 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.account.model.entity.Category;
 import com.example.demo.account.model.entity.CountryPlan;
 import com.example.demo.account.model.entity.Journey;
+import com.example.demo.account.model.entity.TravelMoney;
 
 @Repository
-public interface TravelMoneyRepository extends JpaRepository<Journey, Integer>{
+public interface TravelMoneyRepository extends JpaRepository<TravelMoney, Integer>{
 	
 	//取得行程計劃
-	@Query(value = "select journey_id, attraction, country_plan_id, location, memo, days, time, is_delete from journey where journey_id =:journeyId", nativeQuery = true)
-	List<Object[]> getJourney(@Param("journeyId") Integer journeyId);
+	@Query(value = "select money_id, user_id, category_id, dollar, money_date, product_name from travel_money where money_id =:moneyId", nativeQuery = true)
+	List<Object[]> getTravelMoney(@Param("moneyId") Integer moneyId);
 
 }

@@ -16,6 +16,6 @@ public interface CountryPlanRepository extends JpaRepository<CountryPlan, Intege
 	
 	//取得旅行計劃
 	@Query(value = "select country_plan_id, user_id, country_id, start_time, total_days from country where country_id =:countryId", nativeQuery = true)
-	List<Object[]> getCountry(@Param("countryId") Integer countryId);
+	List<Object[]> getCountryPlan(@Param("countryPlanId") Integer countryPlanId);
 
 }
