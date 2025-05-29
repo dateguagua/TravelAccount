@@ -16,7 +16,7 @@ import com.example.demo.account.model.entity.Journey;
 public interface JourneyRepository extends JpaRepository<Journey, Integer>{
 	
 	//取得行程計劃
-	@Query(value = "select journey_id, attraction, country_plan_id, location, memo, days, time, is_delete from journey where journey_id =:journeyId", nativeQuery = true)
-	List<Object[]> getJourney(@Param("journeyId") Integer journeyId);
+		@Query(value = "select journey_id, attraction, country_plan_id, location, memo, days, time, is_delete from journey where journey_id =:journeyId", nativeQuery = true)
+		List<Object[]> getJourney(@Param("journeyId") Integer journeyId);
 
 }
