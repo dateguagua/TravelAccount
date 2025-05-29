@@ -1,12 +1,17 @@
 package com.example.demo.account.service.Impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.account.except.CountryPlan.CounturyPlanAlreadyExistsException;
+import com.example.demo.account.except.CountryPlan.CounturyPlanNotFoundException;
+
 import com.example.demo.account.mapper.CountryPlanMapper;
 import com.example.demo.account.model.dto.CountryPlanDTO;
+import com.example.demo.account.model.entity.CountryPlan;
 import com.example.demo.account.repository.CountryPlanRepository;
 import com.example.demo.account.service.CountryPlanService;
 
@@ -29,26 +34,41 @@ public class CountryPlanServiceImpl implements CountryPlanService{
 
 	@Override
 	public CountryPlanDTO getCountryPlanById(Integer countryPlanId) {
-		// TODO Auto-generated method stub
-		return null;
+		CountryPlan countryPlan = countryPlanRepository.findById(countryPlanId)
+								.orElseThrow(() -> new CounturyPlanNotFoundException("找不到該旅行計劃：CountryPlanId = " + countryPlanId));
+		return countryPlanMapper.toDto(countryPlan);
 	}
 
 	@Override
 	public void addCountryPlan(CountryPlanDTO countryPlanDTO) {
-		// TODO Auto-generated method stub
-		
+		Optional<CountryPlan> optCountryPlan = countryPlanRepository.findById(countryPlanDTO.getCountryId());
+		if(optCountryPlan.isPresent()) {
+			throw new CounturyPlanAlreadyExistsException("新增失敗：旅行計劃" + countryPlanDTO.getCountryId() + "已存在");
+		}
+		CountryPlan countryPlan = countryPlanMapper.toEntity(countryPlanDTO);
+		countryPlanRepository.save(countryPlan);
+		countryPlanRepository.flush();
 	}
 
 	@Override
 	public void updateCountryPlan(Integer countryPlanId, CountryPlanDTO countryPlanDTO) {
-		// TODO Auto-generated method stub
+		Optional<CountryPlan> optCountryPlan = countryPlanRepository.findById(countryPlanDTO.getCountryId());
+		if(optCountryPlan.isEmpty()) {
+			throw new CounturyPlanNotFoundException("修改失敗：旅行計劃" + countryPlanDTO.getCountryId() + "不存在");
+		}
 		
+		countryPlanDTO.setCountryId(countryPlanId);
+		CountryPlan countryPlan = countryPlanMapper.toEntity(countryPlanDTO);
+		countryPlanRepository.saveAndFlush(countryPlan);
 	}
 
 	@Override
 	public void deleteCountryPlan(Integer countryPlanId) {
-		// TODO Auto-generated method stub
-		
+		Optional<CountryPlan> optCountryPlan = countryPlanRepository.findById(countryPlanId);
+		if(optCountryPlan.isEmpty()) {
+			throw new CounturyPlanNotFoundException("刪除失敗：旅行計劃" + countryPlanId + "不存在");
+		}
+		countryPlanRepository.deleteById(countryPlanId);
 	}
 
 }
