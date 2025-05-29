@@ -41,20 +41,35 @@ public class CountryListServiceImpl implements CountryListService{
 	public void addCountryList(CountryListDTO countryListDTO) {
 		Optional<CountryList> optCountryList = countryListRepository.findById(countryListDTO.getCountryId());
 		if(optCountryList.isPresent()) {
-			throw new CountryListAlreadyExistException("新增國家失敗，此國家已存在" + countryListDTO.getCountryId());
+			throw new CountryListAlreadyExistException("新增國家名稱失敗，此國家已存在" + countryListDTO.getCountryId());
 		}
+		
+		// 進入新增程序
+		// DTO 轉 Entity
+		CountryList countryList = countryListMapper.toEntity(countryListDTO);
+		countryListRepository.save(countryList);
+		countryListRepository.flush();
 	}
 
 	@Override
 	public void updateCountryList(Integer countryId, CountryListDTO countryListDTO) {
-		// TODO Auto-generated method stub
+		Optional<CountryList> optCountryList = countryListRepository.findById(countryListDTO.getCountryId());
+		if(optCountryList.isEmpty()) {
+			throw new CountryListNotFoundException("修改國家名稱失敗:" + countryId + "此國家不存在");
+		}
 		
+		countryListDTO.setCountryId(countryId);
+		CountryList countryList = countryListMapper.toEntity(countryListDTO);
+		countryListRepository.saveAndFlush(countryList);
 	}
 
 	@Override
 	public void deleteCategory(Integer countryId) {
-		// TODO Auto-generated method stub
-		
+		Optional<CountryList> optCountryList = countryListRepository.findById(countryId);
+		if(optCountryList.isEmpty()) {
+			throw new CountryListNotFoundException("刪除國家名稱失敗:" + countryId + "此國家不存在");
+		}
+		countryListRepository.deleteById(countryId);
 	}
 
 }
