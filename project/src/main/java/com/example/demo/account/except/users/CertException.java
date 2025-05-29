@@ -1,4 +1,4 @@
-package com.example.demo.account.except;
+package com.example.demo.account.except.users;
 
 public class CertException extends Exception{
 
