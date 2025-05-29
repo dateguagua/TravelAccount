@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.demo.account.except.countryList.CountryListAlreadyExistException;
 import com.example.demo.account.except.countryList.CountryListNotFoundException;
@@ -13,6 +14,7 @@ import com.example.demo.account.model.entity.CountryList;
 import com.example.demo.account.repository.CountryListRepository;
 import com.example.demo.account.service.CountryListService;
 
+@Service
 public class CountryListServiceImpl implements CountryListService{
 
 	@Autowired

@@ -24,7 +24,7 @@ public class Journey {
 	@Column(name = "journey_id")
 	private Integer journeyId;
 	
-	@Column(name = "countryPlan_id")
+	@Column(name = "countryplan_id")
 	private Integer countryPlanId;
 	
 	@Column(name = "location")
@@ -42,7 +42,7 @@ public class Journey {
 	@Column(name = "days")
 	private Integer days;
 	
-	@Column(name = "isDelete")
-	private Boolean isDelete;
+	@Column(name = "isdelete")
+	private Boolean is_delete;
 	
 }

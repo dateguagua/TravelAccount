@@ -5,9 +5,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-
-import com.example.demo.account.model.dto.CountryListDTO;
-import com.example.demo.account.model.entity.CountryList;
+import com.example.demo.account.model.dto.CountryPlanDTO;
+import com.example.demo.account.model.entity.CountryPlan;
 
 @Component
 public class CountryPlanMapper {
@@ -16,11 +15,11 @@ public class CountryPlanMapper {
 	private ModelMapper modelMapper;
 	
 	
-	public CountryListDTO toDto(CountryList countryList) {
-		return modelMapper.map(countryList, CountryListDTO.class);
+	public CountryPlanDTO toDto(CountryPlan countryPlan) {
+		return modelMapper.map(countryPlan, CountryPlanDTO.class);
 	}
 	
-	public CountryList toEntity(CountryListDTO countryListDTO) {
-		return modelMapper.map(countryListDTO, CountryList.class);
+	public CountryPlan toEntity(CountryPlanDTO countryPlanDTO) {
+		return modelMapper.map(countryPlanDTO, CountryPlan.class);
 	}
 }

@@ -16,12 +16,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Data
-@Table(name = "country_Plan")
+@Table(name = "country_plan")
 public class CountryPlan {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "countryPlan_id")
+	@Column(name = "countryplan_id")
 	private Integer countryPlanId;
 	
 	@Column(name = "user_id")
