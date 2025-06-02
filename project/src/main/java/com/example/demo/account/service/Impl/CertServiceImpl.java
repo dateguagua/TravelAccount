@@ -10,6 +10,7 @@ import com.example.demo.account.model.dto.UsersCert;
 import com.example.demo.account.model.entity.Users;
 import com.example.demo.account.repository.UserRepository;
 import com.example.demo.account.service.CertService;
+import com.example.demo.account.util.HashUtil;
 
 @Service
 public class CertServiceImpl implements CertService{
@@ -27,7 +28,10 @@ public class CertServiceImpl implements CertService{
 		}
 		
 		// 2. 密碼 hash 比對
-		String passwordHash = Hash.getHash(password, users.getHashSalt());
+		String passwordHash = HashUtil.getHash(password, users.getHashSalt());
+		if(!passwordHash.equals(users.get())) {
+			
+		}
 	}
 
 }
