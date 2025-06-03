@@ -35,7 +35,7 @@ public class CategoryController {
 	@GetMapping
 	public ResponseEntity<ApiResponse<List<CategoryDTO>>> findAllCategory(){
 		List<CategoryDTO> categoryDTOs = categoryService.findAllCategory();
-		String message = categoryDTOs.isEmpty()?"查無此帳目類別":"查詢成功，有此帳目類別";
+		String message = categoryDTOs.isEmpty()?"查無帳目類別":"查詢成功";
 		return ResponseEntity.ok(ApiResponse.success(message, categoryDTOs));
 	}
 	

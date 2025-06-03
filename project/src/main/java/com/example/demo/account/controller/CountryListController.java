@@ -34,7 +34,7 @@ public class CountryListController {
 	@GetMapping
 	public ResponseEntity<ApiResponse<List<CountryListDTO>>> findAllCountryList(){
 		List<CountryListDTO> countryListDTOs = countryListService.findAllCountry();
-		String message = countryListDTOs.isEmpty()? "查無該國家資料":"查詢成功，有此國家";
+		String message = countryListDTOs.isEmpty()? "查無國家資料":"查詢成功";
 		return ResponseEntity.ok(ApiResponse.success(message, countryListDTOs));
 	}
 	
