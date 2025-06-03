@@ -35,7 +35,7 @@ public class CountryPlanController {
 	@GetMapping
 	public ResponseEntity<ApiResponse<List<CountryPlanDTO>>> findAllCountryPlan(){
 		List<CountryPlanDTO> countryPlanDTOs = countryPlanService.findAllCountryPlan();
-		String message = countryPlanDTOs.isEmpty()? "查無行程":"查詢成功";
+		String message = countryPlanDTOs.isEmpty()? "查無計劃":"查詢成功";
 		return ResponseEntity.ok(ApiResponse.success(message, countryPlanDTOs));
 	}
 	
@@ -43,7 +43,7 @@ public class CountryPlanController {
 	public ResponseEntity<ApiResponse<CountryPlanDTO>> getCountryPlan(@PathVariable Integer countryPlanId)
 	{
 		CountryPlanDTO countryPlanDTO = countryPlanService.getCountryPlanById(countryPlanId);
-		return ResponseEntity.ok(ApiResponse.success("查詢該行程成功", countryPlanDTO));
+		return ResponseEntity.ok(ApiResponse.success("查詢該計畫成功", countryPlanDTO));
 	}
 	
 	@PostMapping
