@@ -2,6 +2,7 @@ package com.example.demo.account.model.dto;
 
 import java.time.LocalDateTime;
 
+import com.example.demo.account.model.entity.CountryList;
 import com.example.demo.account.model.entity.CountryPlan;
 import com.example.demo.account.model.entity.Users;
 
@@ -17,7 +18,7 @@ public class CountryPlanDTO {
 
 	private Integer countryPlanId;
 	private Users users;
-	private Integer countryId;
+	private CountryList countryList;
 	private Integer totalDays;
 	private LocalDateTime startTime;
 }

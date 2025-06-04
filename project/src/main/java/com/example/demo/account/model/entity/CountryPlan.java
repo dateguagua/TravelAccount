@@ -40,8 +40,9 @@ public class CountryPlan {
 	@JoinColumn(name = "user_id")  // 對應到 users 表
 	private Users user;
 	
-	@Column(name = "country_id")
-	private Integer countryId;
+	@ManyToOne(fetch = FetchType.LAZY)  // 不要加 cascade
+	@JoinColumn(name = "country_id")
+	private CountryList countryList;
 	
 	@Column(name = "total_days")
 	private Integer totalDays;
