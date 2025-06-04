@@ -3,6 +3,7 @@ package com.example.demo.account.model.dto;
 import java.time.LocalDateTime;
 
 import com.example.demo.account.model.entity.Category;
+import com.example.demo.account.model.entity.Users;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -17,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class TravelMoneyDTO {
 	
 	private Integer moneyId;
-	private Integer userId;
+	private Users user;
 	private String productName;
 	private Category category;
 	private Double dollar;

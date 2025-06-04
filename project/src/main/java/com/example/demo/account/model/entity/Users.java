@@ -28,6 +28,7 @@ public class Users {
 	@Column(name = "user_id")
 	private Integer userId;
 	
+	
 	@Column(name = "user_name", unique = true, nullable = false, length = 50)
 	private String userName;
 	
@@ -46,5 +47,7 @@ public class Users {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<CountryPlan> countryPlans = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<TravelMoney> travelMoneys = new ArrayList<>();
 	
 }

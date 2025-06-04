@@ -27,8 +27,9 @@ public class TravelMoney {
 	@Column(name = "money_id")
 	private Integer moneyId;
 	
-	@Column(name = "user_id")
-	private Integer userId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")  // 對應到 users 表
+	private Users user;
 	
 	@Column(name = "product_name")
 	private String productName;

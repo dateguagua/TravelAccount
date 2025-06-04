@@ -7720,3 +7720,9 @@ java.sql.SQLIntegrityConstraintViolationException: Cannot delete or update a par
 2025-06-04T16:55:42.399+08:00  INFO 15255 --- [project] [http-nio-8085-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2025-06-04T16:55:42.400+08:00  INFO 15255 --- [project] [http-nio-8085-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2025-06-04T16:55:42.401+08:00  INFO 15255 --- [project] [http-nio-8085-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-06-04T16:58:47.110+08:00  INFO 15255 --- [project] [RMI TCP Connection(11)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2025-06-04T16:58:47.120+08:00  INFO 15255 --- [project] [RMI TCP Connection(11)-127.0.0.1] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-04T16:58:47.125+08:00  INFO 15255 --- [project] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-06-04T16:58:47.135+08:00  INFO 15255 --- [project] [RMI TCP Connection(11)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-04T16:58:47.143+08:00  INFO 15255 --- [project] [RMI TCP Connection(11)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-06-04T16:58:47.157+08:00  INFO 15255 --- [project] [RMI TCP Connection(11)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

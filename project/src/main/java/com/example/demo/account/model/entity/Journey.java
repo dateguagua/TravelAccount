@@ -28,7 +28,7 @@ public class Journey {
 	private Integer journeyId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)  // 不要加 cascade
-	@JoinColumn(name = "country_plan_id")
+	@JoinColumn(name = "countryplan_id")
 	private CountryPlan countryPlan;
 	
 	@Column(name = "location")
