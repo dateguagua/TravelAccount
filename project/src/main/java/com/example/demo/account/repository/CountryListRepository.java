@@ -15,4 +15,6 @@ public interface CountryListRepository extends JpaRepository<CountryList, Intege
 	//取得國家
 	@Query(value = "select country from country where country_id  =: countryId", nativeQuery = true)
 	Integer getCountry(Integer countryId);
+	
+	boolean existsByCountry(String country);
 }

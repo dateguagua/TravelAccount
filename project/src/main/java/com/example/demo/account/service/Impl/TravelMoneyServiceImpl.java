@@ -42,8 +42,8 @@ public class TravelMoneyServiceImpl implements TravelMoneyService{
 
 	@Override
 	public void addTravelMoney(TravelMoneyDTO travelMoneyDTO) {
-		Optional<TravelMoney> optTravelMoney = travelMoneyRepository.findById(travelMoneyDTO.getMoneyId());
-		if(optTravelMoney.isPresent()) {
+		//Optional<TravelMoney> optTravelMoney = travelMoneyRepository.findById(travelMoneyDTO.getMoneyId());
+		if(travelMoneyRepository.existsByMoneyId(travelMoneyDTO.getMoneyId())) {
 			throw new MoneyAlreadyExistException("新增失敗"+travelMoneyDTO.getMoneyId()+"帳目已存在");
 		}
 		TravelMoney travelMoney = travelMoneyMapper.toEntity(travelMoneyDTO);
@@ -58,7 +58,7 @@ public class TravelMoneyServiceImpl implements TravelMoneyService{
 		if(optTravelMoney.isEmpty()) {
 			throw new MoneyNotFoundException("修改失敗"+travelMoneyDTO.getMoneyId()+"帳目不存在");
 		}
-		travelMoneyDTO.setCategoryId(moneyId);
+		travelMoneyDTO.setMoneyId(moneyId);
 		TravelMoney travelMoney = travelMoneyMapper.toEntity(travelMoneyDTO);
 		travelMoneyRepository.saveAndFlush(travelMoney);
 	}

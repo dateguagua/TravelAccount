@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.account.except.countryPlan.CountryPlanAlreadyExistsException;
 import com.example.demo.account.except.countryPlan.CountryPlanNotFoundException;
@@ -40,8 +41,8 @@ public class CountryPlanServiceImpl implements CountryPlanService{
 
 	@Override
 	public void addCountryPlan(CountryPlanDTO countryPlanDTO) {
-		Optional<CountryPlan> optCountryPlan = countryPlanRepository.findById(countryPlanDTO.getCountryId());
-		if(optCountryPlan.isPresent()) {
+		//Optional<CountryPlan> optCountryPlan = countryPlanRepository.findById(countryPlanDTO.getCountryId());
+		if(countryPlanRepository.existsByCountryPlanId(countryPlanDTO.getCountryPlanId())) {
 			throw new CountryPlanAlreadyExistsException("新增失敗：旅行計劃" + countryPlanDTO.getCountryId() + "已存在");
 		}
 		CountryPlan countryPlan = countryPlanMapper.toEntity(countryPlanDTO);
@@ -51,17 +52,18 @@ public class CountryPlanServiceImpl implements CountryPlanService{
 
 	@Override
 	public void updateCountryPlan(Integer countryPlanId, CountryPlanDTO countryPlanDTO) {
-		Optional<CountryPlan> optCountryPlan = countryPlanRepository.findById(countryPlanDTO.getCountryId());
+		Optional<CountryPlan> optCountryPlan = countryPlanRepository.findById(countryPlanDTO.getCountryPlanId());
 		if(optCountryPlan.isEmpty()) {
-			throw new CountryPlanNotFoundException("修改失敗：旅行計劃" + countryPlanDTO.getCountryId() + "不存在");
+			throw new CountryPlanNotFoundException("修改失敗：旅行計劃" + countryPlanDTO.getCountryPlanId() + "不存在");
 		}
 		
-		countryPlanDTO.setCountryId(countryPlanId);
+		countryPlanDTO.setCountryPlanId(countryPlanId);
 		CountryPlan countryPlan = countryPlanMapper.toEntity(countryPlanDTO);
 		countryPlanRepository.saveAndFlush(countryPlan);
 	}
 
 	@Override
+	@Transactional
 	public void deleteCountryPlan(Integer countryPlanId) {
 		Optional<CountryPlan> optCountryPlan = countryPlanRepository.findById(countryPlanId);
 		if(optCountryPlan.isEmpty()) {

@@ -13,4 +13,7 @@ public interface CategoryRepository extends JpaRepository<Category, Integer>{
 	//取得帳目類別
 	@Query(value = "select category from category where category_id =:categoryId", nativeQuery = true)
 	Integer getCategory(Integer categoryId);
+	
+	boolean existsByCategory(String category);
+
 }

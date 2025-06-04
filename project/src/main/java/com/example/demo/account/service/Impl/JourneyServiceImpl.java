@@ -41,8 +41,8 @@ public class JourneyServiceImpl implements JourneyService {
 
 	@Override
 	public void addJourney(JourneyDTO journeyDTO) {
-		Optional<Journey> optJourney = journeyRepository.findById(journeyDTO.getJourneyId());
-		if(optJourney.isPresent()) {
+		//Optional<Journey> optJourney = journeyRepository.findById(journeyDTO.getJourneyId());
+		if(journeyRepository.existsByJourneyId(journeyDTO.getJourneyId())) {
 			throw new JourneyAlreadyExistException("新增失敗" + journeyDTO.getJourneyId()+"行程已存在");
 		}
 		Journey journey = journeyMapper.toEntity(journeyDTO);

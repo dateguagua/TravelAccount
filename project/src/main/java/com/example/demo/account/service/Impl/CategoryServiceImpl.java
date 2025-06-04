@@ -43,8 +43,8 @@ public class CategoryServiceImpl implements CategoryService{
 
 	@Override
 	public void addCategory(CategoryDTO categoryDTO) {
-		Optional<Category> optCategory = categoryRepository.findById(categoryDTO.getCategoryId());
-		if(optCategory.isPresent()) { //存在
+		//Optional<Category> optCategory = categoryRepository.findById(categoryDTO.getCategoryId());
+		if(categoryRepository.existsByCategory(categoryDTO.getCategory())) { //存在
 			throw new CategoryAlreadyExistsException("新增失敗：帳目類別"+ categoryDTO.getCategoryId()+"已存在");
 		}
 		Category category = categoryMapper.toEntity(categoryDTO);

@@ -19,4 +19,5 @@ public interface JourneyRepository extends JpaRepository<Journey, Integer>{
 		@Query(value = "select journey_id, attraction, country_plan_id, location, memo, days, time, is_delete from journey where journey_id =:journeyId", nativeQuery = true)
 		List<Object[]> getJourney(@Param("journeyId") Integer journeyId);
 
+		boolean existsByJourneyId(Integer JourneyId);
 }

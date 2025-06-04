@@ -41,8 +41,8 @@ public class CountryListServiceImpl implements CountryListService{
 
 	@Override
 	public void addCountryList(CountryListDTO countryListDTO) {
-		Optional<CountryList> optCountryList = countryListRepository.findById(countryListDTO.getCountryId());
-		if(optCountryList.isPresent()) {
+		//Optional<CountryList> optCountryList = countryListRepository.findById(countryListDTO.getCountryId());
+		if(countryListRepository.existsByCountry(countryListDTO.getCountry())) {
 			throw new CountryListAlreadyExistException("新增國家名稱失敗，此國家已存在" + countryListDTO.getCountryId());
 		}
 		

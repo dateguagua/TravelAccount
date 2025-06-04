@@ -20,4 +20,5 @@ public interface TravelMoneyRepository extends JpaRepository<TravelMoney, Intege
 	@Query(value = "select money_id, user_id, category_id, dollar, money_date, product_name from travel_money where money_id =:moneyId", nativeQuery = true)
 	List<Object[]> getTravelMoney(@Param("moneyId") Integer moneyId);
 
+	boolean existsByMoneyId(Integer moneyId);
 }

@@ -38,7 +38,7 @@ public class JourneyController {
 		return ResponseEntity.ok(ApiResponse.success(message, journeyDTOs));
 	}
 	
-	@GetMapping("{/journeyId}")
+	@GetMapping("/{journeyId}")
 	public ResponseEntity<ApiResponse<JourneyDTO>> getJourney(@PathVariable Integer journeyId){
 		JourneyDTO journeyDTO = journeyService.getJourneyById(journeyId) ;
 		return ResponseEntity.ok(ApiResponse.success("查詢該行程成功", journeyDTO));
@@ -54,7 +54,7 @@ public class JourneyController {
 		return ResponseEntity.ok(ApiResponse.success("新增行程成功", journeyDTO));
 	}
 	
-	@PutMapping("{/journeyId}")
+	@PutMapping("/{journeyId}")
 	public ResponseEntity<ApiResponse<JourneyDTO>> updateJourney(@PathVariable Integer journeyId, @Valid @RequestBody JourneyDTO journeyDTO,BindingResult bindingResult)
 	{
 		if(bindingResult.hasErrors()) {
@@ -64,7 +64,7 @@ public class JourneyController {
 		return ResponseEntity.ok(ApiResponse.success("修改行程成功", journeyDTO));
 	}
 	
-	@DeleteMapping("{/journeyId}")
+	@DeleteMapping("/{journeyId}")
 	public ResponseEntity<ApiResponse<Integer>> deleteJourney(@PathVariable Integer journeyId){
 		journeyService.deleteJourney(journeyId);
 		return ResponseEntity.ok(ApiResponse.success("刪除行程成功", journeyId));

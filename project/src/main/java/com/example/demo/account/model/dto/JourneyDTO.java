@@ -2,6 +2,7 @@ package com.example.demo.account.model.dto;
 
 import java.time.LocalDateTime;
 
+import com.example.demo.account.model.entity.CountryPlan;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -18,7 +19,7 @@ public class JourneyDTO {
 
 
 	private Integer journeyId;
-	//private Integer countryPlanId;
+	private CountryPlan countryPlan;
 	private String location;
 	private String attraction;
 	private String memo;
