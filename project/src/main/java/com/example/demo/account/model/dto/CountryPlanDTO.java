@@ -17,8 +17,8 @@ import lombok.NoArgsConstructor;
 public class CountryPlanDTO {
 
 	private Integer countryPlanId;
-	private Users users;
-	private CountryList countryList;
+	private String userName;
+	private String countryName;
 	private Integer totalDays;
 	private LocalDateTime startTime;
 }

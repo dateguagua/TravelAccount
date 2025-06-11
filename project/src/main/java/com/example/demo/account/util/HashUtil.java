@@ -6,14 +6,14 @@ import java.util.Base64;
 
 public class HashUtil {
 	// 產生含鹽雜湊
-	public static String getHash(String passwrd, String salt){
+	public static String getHash(String password, String salt){
 		try {
 			// 加密演算法: SHA-256
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
 			// 加鹽
 			md.update(salt.getBytes());
 			// 進行加密
-			byte[] hashBytes = md.digest(passwrd.getBytes());
+			byte[] hashBytes = md.digest(password.getBytes());
 			// 將 byte[] 透過 Base64 編碼方便儲存
 			return Base64.getEncoder().encodeToString(hashBytes);
 		} catch (Exception e) {

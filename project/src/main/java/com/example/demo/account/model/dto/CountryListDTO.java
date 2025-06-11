@@ -13,5 +13,7 @@ public class CountryListDTO {
 
 	
 	private Integer countryId;
-	private String country;
+	private String countryName;
+	
+	
 }

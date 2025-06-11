@@ -18,7 +18,16 @@ public class JourneyMapper {
 	
 	
 	public JourneyDTO toDto(Journey journey) {
-		return modelMapper.map(journey, JourneyDTO.class);
+		JourneyDTO dto = new JourneyDTO();
+		dto.setJourneyId(journey.getJourneyId());
+		dto.setCountryPlanId(journey.getCountryPlan().getCountryPlanId());
+		dto.setLocation(journey.getLocation());
+		dto.setAttraction(journey.getAttraction());
+		dto.setMemo(journey.getMemo());
+		dto.setTime(journey.getTime());
+		dto.setDays(journey.getDays());
+		
+		return dto;
 	}
 	
 	public Journey toEntity(JourneyDTO journeyDTO) {

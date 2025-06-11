@@ -52,4 +52,7 @@ public class CountryPlan {
 	
 	@OneToMany(mappedBy = "countryPlan", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Journey> journeys = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "countryPlan", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<TravelMoney> travelMoneys = new ArrayList<>();
 }

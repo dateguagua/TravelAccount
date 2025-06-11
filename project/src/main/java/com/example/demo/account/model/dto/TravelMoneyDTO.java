@@ -18,9 +18,9 @@ import lombok.NoArgsConstructor;
 public class TravelMoneyDTO {
 	
 	private Integer moneyId;
-	private Users user;
+	private Integer countryPlanId ;
 	private String productName;
-	private Category category;
+	private String category;
 	private Double dollar;
 	private LocalDateTime moneyDate;
 }

@@ -16,7 +16,13 @@ public class CountryPlanMapper {
 	
 	
 	public CountryPlanDTO toDto(CountryPlan countryPlan) {
-		return modelMapper.map(countryPlan, CountryPlanDTO.class);
+		CountryPlanDTO dto = new CountryPlanDTO();
+		dto.setCountryPlanId(countryPlan.getCountryPlanId());
+		dto.setUserName(countryPlan.getUser().getUserName());
+		dto.setCountryName(countryPlan.getCountryList().getCountryName());
+		dto.setStartTime(countryPlan.getStartTime());
+		dto.setTotalDays(countryPlan.getTotalDays());
+		return dto;
 	}
 	
 	public CountryPlan toEntity(CountryPlanDTO countryPlanDTO) {

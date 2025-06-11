@@ -1,6 +1,7 @@
 package com.example.demo.account.model.dto;
 
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,5 +13,6 @@ import lombok.NoArgsConstructor;
 public class CategoryDTO {
 
 	private Integer categoryId;
-	private String category;
+	private String categoryName;
+	
 }

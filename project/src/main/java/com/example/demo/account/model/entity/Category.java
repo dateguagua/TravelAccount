@@ -33,7 +33,7 @@ public class Category {
 	private Integer categoryId;
 	
 	@Column(name = "category")
-	private String category;
+	private String categoryName;
 	
 	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<TravelMoney> travelMoneys = new ArrayList<>();

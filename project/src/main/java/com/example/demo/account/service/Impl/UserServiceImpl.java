@@ -1,6 +1,5 @@
 package com.example.demo.account.service.Impl;
 
-import java.io.Console;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,26 +31,19 @@ public class UserServiceImpl implements UserService{
 
 
 	@Override
-	public void LoginUser(String name, String password, String authCode, String sessionAuthCode) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void addUser(String username, String password, String email) {
 		String salt = HashUtil.getSalt();
 		String passwordHash = HashUtil.getHash(password, salt) ;
-		Users users = new Users(null, username, passwordHash, salt, email, null);
+		Users users = Users.builder()
+			    .userName(username)
+			    .password(passwordHash)
+			    .hashSalt(salt)
+			    .email(email)
+			    .build();
+
 		userRepository.save(users);
 		
 	}
 
-	@Override
-	public void emailConfirmOk(String username) {
-		if(username == null) {
-			return;
-		}
-		userRegisterDAO.emailConfirmOK(username);
-	}
 
 }

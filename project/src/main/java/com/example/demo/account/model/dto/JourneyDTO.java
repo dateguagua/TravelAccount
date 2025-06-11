@@ -19,7 +19,7 @@ public class JourneyDTO {
 
 
 	private Integer journeyId;
-	private CountryPlan countryPlan;
+	private Integer countryPlanId;
 	private String location;
 	private String attraction;
 	private String memo;

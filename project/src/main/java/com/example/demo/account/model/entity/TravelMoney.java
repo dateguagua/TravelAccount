@@ -28,13 +28,13 @@ public class TravelMoney {
 	private Integer moneyId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")  // 對應到 users 表
-	private Users user;
+	@JoinColumn(name = "countryplan_id")  
+	private CountryPlan countryPlan;
 	
 	@Column(name = "product_name")
 	private String productName;
 	
-	@ManyToOne(fetch = FetchType.LAZY)  // 不要加 cascade
+	@ManyToOne(fetch = FetchType.EAGER)  // 不要加 cascade
 	@JoinColumn(name = "category_id")
 	private Category category;
 	

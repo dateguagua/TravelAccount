@@ -28,7 +28,7 @@ public class CountryList {
 	private Integer countryId;
 	
 	@Column(name = "country")
-	private String country;
+	private String countryName;
 	
 	@OneToMany(mappedBy = "countryList", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<CountryPlan> countryPlans = new ArrayList<>();

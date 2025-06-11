@@ -16,6 +16,7 @@ import com.example.demo.account.repository.CountryPlanRepository;
 import com.example.demo.account.service.CountryPlanService;
 
 @Service
+@Transactional
 public class CountryPlanServiceImpl implements CountryPlanService{
 
 	@Autowired
@@ -43,7 +44,7 @@ public class CountryPlanServiceImpl implements CountryPlanService{
 	public void addCountryPlan(CountryPlanDTO countryPlanDTO) {
 		//Optional<CountryPlan> optCountryPlan = countryPlanRepository.findById(countryPlanDTO.getCountryId());
 		if(countryPlanRepository.existsByCountryPlanId(countryPlanDTO.getCountryPlanId())) {
-			throw new CountryPlanAlreadyExistsException("新增失敗：旅行計劃" + countryPlanDTO.getCountryId() + "已存在");
+			throw new CountryPlanAlreadyExistsException("新增失敗：旅行計劃" + countryPlanDTO.getCountryPlanId() + "已存在");
 		}
 		CountryPlan countryPlan = countryPlanMapper.toEntity(countryPlanDTO);
 		countryPlanRepository.save(countryPlan);
