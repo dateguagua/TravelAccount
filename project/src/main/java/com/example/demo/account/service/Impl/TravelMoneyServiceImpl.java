@@ -3,15 +3,22 @@ package com.example.demo.account.service.Impl;
 import java.util.List;
 import java.util.Optional;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.account.except.category.CategoryNotFoundException;
+import com.example.demo.account.except.countryPlan.CountryPlanNotFoundException;
 import com.example.demo.account.except.money.MoneyAlreadyExistException;
 import com.example.demo.account.except.money.MoneyNotFoundException;
 import com.example.demo.account.mapper.TravelMoneyMapper;
 import com.example.demo.account.model.dto.TravelMoneyDTO;
+import com.example.demo.account.model.entity.Category;
+import com.example.demo.account.model.entity.CountryPlan;
 import com.example.demo.account.model.entity.TravelMoney;
-
+import com.example.demo.account.repository.CategoryRepository;
+import com.example.demo.account.repository.CountryListRepository;
+import com.example.demo.account.repository.CountryPlanRepository;
 import com.example.demo.account.repository.TravelMoneyRepository;
 import com.example.demo.account.service.TravelMoneyService;
 
@@ -20,6 +27,12 @@ public class TravelMoneyServiceImpl implements TravelMoneyService{
 
 	@Autowired
 	private TravelMoneyRepository travelMoneyRepository;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
+	
+	@Autowired
+	private CountryPlanRepository countryPlanRepository;
 	
 	@Autowired 
 	private TravelMoneyMapper travelMoneyMapper;
@@ -46,7 +59,18 @@ public class TravelMoneyServiceImpl implements TravelMoneyService{
 		if(travelMoneyRepository.existsByMoneyId(travelMoneyDTO.getMoneyId())) {
 			throw new MoneyAlreadyExistException("新增失敗"+travelMoneyDTO.getMoneyId()+"帳目已存在");
 		}
-		TravelMoney travelMoney = travelMoneyMapper.toEntity(travelMoneyDTO);
+		
+		Category category = categoryRepository.findById(travelMoneyDTO.getCategoryId())
+				 .orElseThrow(() -> new CategoryNotFoundException("找不到該帳目" + travelMoneyDTO.getCategoryId()));
+		
+		CountryPlan countryPlan = countryPlanRepository.findById(travelMoneyDTO.getCountryPlanId())
+			    .orElseThrow(() -> new CountryPlanNotFoundException("找不到該旅行計畫：" + travelMoneyDTO.getCountryPlanId()));
+
+		
+		TravelMoney travelMoney = travelMoneyMapper.toEntityWithoutRelations(travelMoneyDTO);
+		travelMoney.setCategory(category);
+		travelMoney.setCountryPlan(countryPlan);
+		
 		travelMoneyRepository.save(travelMoney);
 		travelMoneyRepository.flush();
 		
@@ -54,12 +78,23 @@ public class TravelMoneyServiceImpl implements TravelMoneyService{
 
 	@Override
 	public void updateTravelMoney(Integer moneyId, TravelMoneyDTO travelMoneyDTO) {
-		Optional<TravelMoney> optTravelMoney = travelMoneyRepository.findById(travelMoneyDTO.getMoneyId());
-		if(optTravelMoney.isEmpty()) {
-			throw new MoneyNotFoundException("修改失敗"+travelMoneyDTO.getMoneyId()+"帳目不存在");
-		}
+		//Optional<TravelMoney> optTravelMoney = travelMoneyRepository.findById(travelMoneyDTO.getMoneyId());
+		
+		TravelMoney existing = travelMoneyRepository.findById(moneyId)
+							.orElseThrow(() -> new MoneyNotFoundException("修改失敗"+ moneyId+"帳目不存在")); 
+		
+		Category category = categoryRepository.findById(travelMoneyDTO.getCategoryId())
+						 .orElseThrow(() -> new CategoryNotFoundException("找不到該帳目" + travelMoneyDTO.getCategoryId()));
+		
+		CountryPlan countryPlan = countryPlanRepository.findById(travelMoneyDTO.getCountryPlanId())
+			    .orElseThrow(() -> new CountryPlanNotFoundException("找不到該旅行計畫：" + travelMoneyDTO.getCountryPlanId()));
+		
 		travelMoneyDTO.setMoneyId(moneyId);
-		TravelMoney travelMoney = travelMoneyMapper.toEntity(travelMoneyDTO);
+		TravelMoney travelMoney = travelMoneyMapper.toEntityWithoutRelations(travelMoneyDTO);
+		
+		travelMoney.setCategory(category);
+		travelMoney.setCountryPlan(countryPlan);
+		
 		travelMoneyRepository.saveAndFlush(travelMoney);
 	}
 

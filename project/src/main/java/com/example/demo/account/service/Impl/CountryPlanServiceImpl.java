@@ -7,12 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.demo.account.except.countryList.CountryListNotFoundException;
 import com.example.demo.account.except.countryPlan.CountryPlanAlreadyExistsException;
 import com.example.demo.account.except.countryPlan.CountryPlanNotFoundException;
+import com.example.demo.account.except.users.UserNotFoundException;
 import com.example.demo.account.mapper.CountryPlanMapper;
 import com.example.demo.account.model.dto.CountryPlanDTO;
+import com.example.demo.account.model.entity.CountryList;
 import com.example.demo.account.model.entity.CountryPlan;
+import com.example.demo.account.model.entity.Users;
+import com.example.demo.account.repository.CountryListRepository;
 import com.example.demo.account.repository.CountryPlanRepository;
+import com.example.demo.account.repository.UserRepository;
 import com.example.demo.account.service.CountryPlanService;
 
 @Service
@@ -21,6 +27,12 @@ public class CountryPlanServiceImpl implements CountryPlanService{
 
 	@Autowired
 	private CountryPlanRepository countryPlanRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private CountryListRepository countryListRepository;
 	
 	@Autowired
 	private CountryPlanMapper countryPlanMapper;
@@ -46,20 +58,40 @@ public class CountryPlanServiceImpl implements CountryPlanService{
 		if(countryPlanRepository.existsByCountryPlanId(countryPlanDTO.getCountryPlanId())) {
 			throw new CountryPlanAlreadyExistsException("新增失敗：旅行計劃" + countryPlanDTO.getCountryPlanId() + "已存在");
 		}
-		CountryPlan countryPlan = countryPlanMapper.toEntity(countryPlanDTO);
+		
+		Users users = userRepository.findById(countryPlanDTO.getUserId())
+					.orElseThrow(() -> new UserNotFoundException("找不到使用者" + countryPlanDTO.getUserId()));
+		
+		CountryList countryList = countryListRepository.findById(countryPlanDTO.getCountryId())
+					.orElseThrow(() -> new CountryListNotFoundException("找不到該國家" + countryPlanDTO.getCountryId()));
+		
+		CountryPlan countryPlan = countryPlanMapper.toEntityWithoutRelations(countryPlanDTO);
+		
+		countryPlan.setUser(users);
+		countryPlan.setCountryList(countryList);
+		
 		countryPlanRepository.save(countryPlan);
 		countryPlanRepository.flush();
 	}
 
 	@Override
 	public void updateCountryPlan(Integer countryPlanId, CountryPlanDTO countryPlanDTO) {
-		Optional<CountryPlan> optCountryPlan = countryPlanRepository.findById(countryPlanDTO.getCountryPlanId());
-		if(optCountryPlan.isEmpty()) {
-			throw new CountryPlanNotFoundException("修改失敗：旅行計劃" + countryPlanDTO.getCountryPlanId() + "不存在");
-		}
+		
+		CountryPlan existing = countryPlanRepository.findById(countryPlanId)
+							.orElseThrow(() -> new CountryPlanNotFoundException("修改失敗：旅行計劃" + countryPlanId + "不存在"));
 		
 		countryPlanDTO.setCountryPlanId(countryPlanId);
-		CountryPlan countryPlan = countryPlanMapper.toEntity(countryPlanDTO);
+		
+		Users users = userRepository.findById(countryPlanDTO.getUserId())
+				.orElseThrow(() -> new UserNotFoundException("找不到使用者" + countryPlanDTO.getUserId()));
+		
+		CountryList countryList = countryListRepository.findById(countryPlanDTO.getCountryId())
+				.orElseThrow(() -> new CountryListNotFoundException("找不到該國家" + countryPlanDTO.getCountryId()));
+		
+		CountryPlan countryPlan = countryPlanMapper.toEntityWithoutRelations(countryPlanDTO);
+		countryPlan.setUser(users);
+		countryPlan.setCountryList(countryList);
+		
 		countryPlanRepository.saveAndFlush(countryPlan);
 	}
 

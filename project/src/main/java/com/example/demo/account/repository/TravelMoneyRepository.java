@@ -17,8 +17,9 @@ import com.example.demo.account.model.entity.TravelMoney;
 public interface TravelMoneyRepository extends JpaRepository<TravelMoney, Integer>{
 	
 	//取得錢
-	@Query(value = "select money_id, user_id, category_id, dollar, money_date, product_name from travel_money where money_id =:moneyId", nativeQuery = true)
-	List<Object[]> getTravelMoney(@Param("moneyId") Integer moneyId);
-
+//	@Query(value = "select money_id, user_id, category_id, dollar, money_date, product_name from travel_money where money_id =:moneyId", nativeQuery = true)
+//	List<Object[]> getTravelMoney(@Param("moneyId") Integer moneyId);
+	List<TravelMoney> findAllByMoneyId(Integer moneyId);
+	
 	boolean existsByMoneyId(Integer moneyId);
 }

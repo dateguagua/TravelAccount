@@ -1,6 +1,6 @@
 package com.example.demo.account.except.users;
 
-public class UserNotFoundException extends CertException{
+public class UserNotFoundException extends RuntimeException{
 
 	public UserNotFoundException(String message) {
 		super(message);

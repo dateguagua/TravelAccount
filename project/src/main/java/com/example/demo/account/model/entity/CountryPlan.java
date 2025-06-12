@@ -1,8 +1,11 @@
 package com.example.demo.account.model.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -47,8 +50,9 @@ public class CountryPlan {
 	@Column(name = "total_days")
 	private Integer totalDays;
 	
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "start_time")
-	private LocalDateTime startTime;
+	private LocalDate startTime;
 	
 	@OneToMany(mappedBy = "countryPlan", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Journey> journeys = new ArrayList<>();

@@ -1,6 +1,9 @@
 package com.example.demo.account.model.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,8 +43,9 @@ public class Journey {
 	@Column(name = "memo")
 	private String memo;
 	
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "time")
-	private LocalDateTime time;
+	private LocalDate time;
 	
 	@Column(name = "days")
 	private Integer days;

@@ -1,6 +1,9 @@
 package com.example.demo.account.model.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -42,8 +45,9 @@ public class TravelMoney {
 	@Column(name = "dollar")
 	private Double dollar;
 	
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "money_date")
-	private LocalDateTime moneyDate;
+	private LocalDate moneyDate;
 	
 	
 	

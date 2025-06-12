@@ -1,6 +1,8 @@
 package com.example.demo.account.except.countryList;
 
-public class CountryListNotFoundException extends CountryListException{
+import com.example.demo.account.except.countryPlan.CountryPlanException;
+
+public class CountryListNotFoundException extends CountryPlanException{
 
 	public CountryListNotFoundException(String message) {
 		super(message);

@@ -5,8 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-
-
+import com.example.demo.account.model.dto.CountryPlanDTO;
 import com.example.demo.account.model.dto.JourneyDTO;
 import com.example.demo.account.model.entity.Journey;
 
@@ -18,16 +17,18 @@ public class JourneyMapper {
 	
 	
 	public JourneyDTO toDto(Journey journey) {
-		JourneyDTO dto = new JourneyDTO();
-		dto.setJourneyId(journey.getJourneyId());
-		dto.setCountryPlanId(journey.getCountryPlan().getCountryPlanId());
-		dto.setLocation(journey.getLocation());
-		dto.setAttraction(journey.getAttraction());
-		dto.setMemo(journey.getMemo());
-		dto.setTime(journey.getTime());
-		dto.setDays(journey.getDays());
+//		JourneyDTO dto = new JourneyDTO();
+//		dto.setJourneyId(journey.getJourneyId());
+//		dto.setCountryPlanId(journey.getCountryPlan().getCountryPlanId());
+//		dto.setLocation(journey.getLocation());
+//		dto.setAttraction(journey.getAttraction());
+//		dto.setMemo(journey.getMemo());
+//		dto.setTime(journey.getTime());
+//		dto.setDays(journey.getDays());
+//		
+//		return dto;
 		
-		return dto;
+		return modelMapper.map(journey, JourneyDTO.class);
 	}
 	
 	public Journey toEntity(JourneyDTO journeyDTO) {
