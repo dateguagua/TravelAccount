@@ -8,6 +8,7 @@ import com.example.demo.account.model.dto.CountryPlanDTO;
 
 public interface CountryPlanService {
 
+	public List<CountryPlanDTO> findByUserUserId(Integer userId);
 	public List<CountryPlanDTO> findAllCountryPlan();
 	public CountryPlanDTO getCountryPlanById(Integer countryPlanId);
 	

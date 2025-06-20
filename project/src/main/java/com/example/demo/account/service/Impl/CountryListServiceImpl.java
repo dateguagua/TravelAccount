@@ -55,10 +55,12 @@ public class CountryListServiceImpl implements CountryListService{
 
 	@Override
 	public void updateCountryList(Integer countryId, CountryListDTO countryListDTO) {
-		Optional<CountryList> optCountryList = countryListRepository.findById(countryListDTO.getCountryId());
+		Optional<CountryList> optCountryList = countryListRepository.findById(countryId);
 		if(optCountryList.isEmpty()) {
 			throw new CountryListNotFoundException("修改國家名稱失敗:" + countryId + "此國家不存在");
 		}
+		
+		
 		
 		countryListDTO.setCountryId(countryId);
 		CountryList countryList = countryListMapper.toEntity(countryListDTO);

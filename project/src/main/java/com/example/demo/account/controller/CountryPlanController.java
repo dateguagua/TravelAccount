@@ -1,5 +1,6 @@
 package com.example.demo.account.controller;
 
+import java.security.cert.Certificate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.account.except.countryPlan.CountryPlanException;
 import com.example.demo.account.model.dto.CountryPlanDTO;
+import com.example.demo.account.model.dto.UsersCert;
 import com.example.demo.account.response.ApiResponse;
 import com.example.demo.account.service.CountryPlanService;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @RestController
@@ -33,13 +36,30 @@ public class CountryPlanController {
 	private CountryPlanService countryPlanService;
 	
 	@GetMapping
+	public ResponseEntity<ApiResponse<List<CountryPlanDTO>>> findByUserCountrys(HttpSession session)
+	{
+		UsersCert cert = (UsersCert) session.getAttribute("userCert");
+		
+	    if (cert == null) {
+	        return ResponseEntity
+	            .status(401)
+	            .body(ApiResponse.error(401, "尚未登入"));
+	    }
+
+	    // 呼叫 Service 用 userId 找計畫
+		List<CountryPlanDTO> countryPlanDTOs = countryPlanService.findByUserUserId(cert.getId());
+		String message = countryPlanDTOs.isEmpty()? "查無計劃":"查詢成功";
+		return ResponseEntity.ok(ApiResponse.success(message, countryPlanDTOs));
+	}
+	
+	@GetMapping("/findAll")
 	public ResponseEntity<ApiResponse<List<CountryPlanDTO>>> findAllCountryPlan(){
 		List<CountryPlanDTO> countryPlanDTOs = countryPlanService.findAllCountryPlan();
 		String message = countryPlanDTOs.isEmpty()? "查無計劃":"查詢成功";
 		return ResponseEntity.ok(ApiResponse.success(message, countryPlanDTOs));
 	}
 	
-	@GetMapping("/{countryPlanId}")
+	@GetMapping("findAll/{countryPlanId}")
 	public ResponseEntity<ApiResponse<CountryPlanDTO>> getCountryPlan(@PathVariable Integer countryPlanId)
 	{
 		CountryPlanDTO countryPlanDTO = countryPlanService.getCountryPlanById(countryPlanId);
@@ -47,13 +67,26 @@ public class CountryPlanController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ApiResponse<CountryPlanDTO>> addCountryPlan(@Valid @RequestBody CountryPlanDTO countryPlanDTO, BindingResult bindingResult)
+	public ResponseEntity<ApiResponse<CountryPlanDTO>> addCountryPlan(@Valid @RequestBody CountryPlanDTO countryPlanDTO, BindingResult bindingResult, HttpSession session)
 	{
-		if(bindingResult.hasErrors()) {
-			throw new CountryPlanException("新增失敗："+ bindingResult.getAllErrors().get(0).getDefaultMessage());
-		}
-		countryPlanService.addCountryPlan(countryPlanDTO);
-		return ResponseEntity.ok(ApiResponse.success("新增成功", countryPlanDTO));
+	    if(bindingResult.hasErrors()) {
+	        throw new CountryPlanException("新增失敗："+ bindingResult.getAllErrors().get(0).getDefaultMessage());
+	    }
+	    
+	    // 從 session 獲取當前用戶資訊
+	    UsersCert cert = (UsersCert) session.getAttribute("userCert");
+	    if (cert == null) {
+	        return ResponseEntity
+	            .status(401)
+	            .body(ApiResponse.error(401, "尚未登入"));
+	    }
+	    
+	    // 設定用戶資訊到 DTO（注意欄位名稱）
+	    countryPlanDTO.setUserId(cert.getId());
+	    countryPlanDTO.setUserName(cert.getUsername()); // UsersCert 用的是 username
+	    
+	    countryPlanService.addCountryPlan(countryPlanDTO);
+	    return ResponseEntity.ok(ApiResponse.success("新增成功", countryPlanDTO));
 	}
 	
 	@PutMapping("/{countryPlanId}")

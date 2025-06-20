@@ -76,23 +76,21 @@ public class CountryPlanServiceImpl implements CountryPlanService{
 
 	@Override
 	public void updateCountryPlan(Integer countryPlanId, CountryPlanDTO countryPlanDTO) {
-		
-		CountryPlan existing = countryPlanRepository.findById(countryPlanId)
-							.orElseThrow(() -> new CountryPlanNotFoundException("修改失敗：旅行計劃" + countryPlanId + "不存在"));
-		
-		countryPlanDTO.setCountryPlanId(countryPlanId);
-		
-		Users users = userRepository.findById(countryPlanDTO.getUserId())
-				.orElseThrow(() -> new UserNotFoundException("找不到使用者" + countryPlanDTO.getUserId()));
-		
-		CountryList countryList = countryListRepository.findById(countryPlanDTO.getCountryId())
-				.orElseThrow(() -> new CountryListNotFoundException("找不到該國家" + countryPlanDTO.getCountryId()));
-		
-		CountryPlan countryPlan = countryPlanMapper.toEntityWithoutRelations(countryPlanDTO);
-		countryPlan.setUser(users);
-		countryPlan.setCountryList(countryList);
-		
-		countryPlanRepository.saveAndFlush(countryPlan);
+	    // 先找到現有記錄
+	    CountryPlan existing = countryPlanRepository.findById(countryPlanId)
+	        .orElseThrow(() -> new CountryPlanNotFoundException("修改失敗：旅行計劃" + countryPlanId + "不存在"));
+
+	    // 直接更新現有物件的欄位
+	    existing.setTotalDays(countryPlanDTO.getTotalDays());
+	    existing.setStartTime(countryPlanDTO.getStartTime());
+	    
+	    // 更新國家
+	    CountryList countryList = countryListRepository.findById(countryPlanDTO.getCountryId())
+	        .orElseThrow(() -> new CountryListNotFoundException("找不到該國家" + countryPlanDTO.getCountryId()));
+	    existing.setCountryList(countryList);
+	    
+	    // 保存更新（不是新增）
+	    countryPlanRepository.save(existing);
 	}
 
 	@Override
@@ -103,6 +101,15 @@ public class CountryPlanServiceImpl implements CountryPlanService{
 			throw new CountryPlanNotFoundException("刪除失敗：旅行計劃" + countryPlanId + "不存在");
 		}
 		countryPlanRepository.deleteById(countryPlanId);
+	}
+
+	@Override
+	public List<CountryPlanDTO> findByUserUserId(Integer userId) {
+		List<CountryPlan> countryPlans = countryPlanRepository.findByUserUserId(userId);
+		return countryPlans
+				.stream()
+				.map(countryPlanMapper::toDto)
+				.toList();
 	}
 
 }

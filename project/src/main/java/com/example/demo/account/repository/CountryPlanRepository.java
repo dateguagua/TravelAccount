@@ -18,6 +18,7 @@ public interface CountryPlanRepository extends JpaRepository<CountryPlan, Intege
 //	@Query(value = "select countryplan_id, user_id, country_id, start_time, total_days from country_plan where countryplan_id =:countryPlanId", nativeQuery = true)
 //	List<Object[]> getCountryPlansByCountryId(@Param("countryPlanId") Integer countryPlanId);
 	List<CountryPlan> findAllByCountryPlanId(Integer countryPlanId);
+	List<CountryPlan> findByUserUserId(Integer userId);
 
 
 	boolean existsByCountryPlanId(Integer countryPlanId);

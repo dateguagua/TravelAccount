@@ -13,6 +13,6 @@ public class UsersDTO {
 	
 	private Integer userId;
 	private String userName;
-	private String email;
-	private Boolean complete;
+//	private String email;
+//	private Boolean complete;
 }

@@ -1,5 +1,7 @@
 package com.example.demo.account.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.account.except.users.CertException;
+import com.example.demo.account.model.dto.TravelMoneyDTO;
 import com.example.demo.account.model.dto.UsersCert;
+import com.example.demo.account.model.dto.UsersDTO;
 import com.example.demo.account.response.ApiResponse;
 import com.example.demo.account.service.CertService;
 import com.example.demo.account.service.UserService;
@@ -29,6 +33,13 @@ public class UserLoginController {
 
 	@Autowired
 	private UserService userService;
+	
+	@GetMapping("/user")
+	public ResponseEntity<ApiResponse<List<UsersDTO>>> findAllUser(){
+		List<UsersDTO> usersDTOs = userService.findAllUser();
+		String message = usersDTOs.isEmpty()? "查無此Player":"查詢成功";
+		return ResponseEntity.ok(ApiResponse.success(message, usersDTOs));
+	}
 	
 	@PostMapping("/login")
 	public ResponseEntity<ApiResponse<Void>> login(@RequestParam String userName, @RequestParam String password, HttpSession session)

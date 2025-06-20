@@ -34,8 +34,8 @@ public class Users {
 	@Column(name = "user_name", unique = true, nullable = false, length = 50)
 	private String userName;
 	
-	@Column(name = "email",unique = true)
-	private String email;
+//	@Column(name = "email",unique = true)
+//	private String email;
 	
 	@Column(name = "password", nullable = false)
 	private String password;
@@ -43,8 +43,8 @@ public class Users {
 	@Column(name = "hash_salt")
 	private String hashSalt;
 	
-	@Column(name = "complete")
-	private Boolean complete;
+//	@Column(name = "complete")
+//	private Boolean complete;
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<CountryPlan> countryPlans = new ArrayList<>();

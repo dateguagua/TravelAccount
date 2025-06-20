@@ -55,14 +55,29 @@ public class CountryListController {
 		return ResponseEntity.ok(ApiResponse.success("國家新增成功", countryListDTO));
 	}
 	
+//	@PutMapping("/{countryId}")
+//	public ResponseEntity<ApiResponse<CountryListDTO>> updateCountry(@PathVariable Integer countryId,@Valid @RequestBody CountryListDTO countryListDTO, BindingResult bindingResult)
+//	{
+//		if(bindingResult.hasErrors()) {
+//			throw new CountryListException("修改失敗："+bindingResult.getAllErrors().get(0).getDefaultMessage());
+//		}
+//		countryListService.updateCountryList(countryId, countryListDTO);
+//		return ResponseEntity.ok(ApiResponse.success("國家修改成功", countryListDTO));
+//	}
+	
 	@PutMapping("/{countryId}")
 	public ResponseEntity<ApiResponse<CountryListDTO>> updateCountry(@PathVariable Integer countryId,@Valid @RequestBody CountryListDTO countryListDTO, BindingResult bindingResult)
 	{
-		if(bindingResult.hasErrors()) {
-			throw new CountryListException("修改失敗："+bindingResult.getAllErrors().get(0).getDefaultMessage());
-		}
-		countryListService.updateCountryList(countryId, countryListDTO);
-		return ResponseEntity.ok(ApiResponse.success("國家修改成功", countryListDTO));
+	    System.out.println("=== 編輯調試開始 ===");
+	    System.out.println("接收到的 countryId: " + countryId);
+	    System.out.println("接收到的 countryListDTO: " + countryListDTO);
+	    System.out.println("========================");
+	    
+	    if(bindingResult.hasErrors()) {
+	        throw new CountryListException("修改失敗："+bindingResult.getAllErrors().get(0).getDefaultMessage());
+	    }
+	    countryListService.updateCountryList(countryId, countryListDTO);
+	    return ResponseEntity.ok(ApiResponse.success("國家修改成功", countryListDTO));
 	}
 	
 	@DeleteMapping("/{countryId}")

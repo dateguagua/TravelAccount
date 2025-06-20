@@ -1,6 +1,8 @@
 package com.example.demo.account.service.Impl;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,11 +40,20 @@ public class UserServiceImpl implements UserService{
 			    .userName(username)
 			    .password(passwordHash)
 			    .hashSalt(salt)
-			    .email(email)
+//			    .email(email)
 			    .build();
 
 		userRepository.save(users);
 		
+	}
+
+
+	@Override
+	public List<UsersDTO> findAllUser() {
+		return userRepository.findAll()
+				.stream()
+				.map(usersMapper::toDto)
+				.toList();
 	}
 
 
