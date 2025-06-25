@@ -1,6 +1,5 @@
 package com.example.demo.account.model.entity;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,28 +25,27 @@ import lombok.NoArgsConstructor;
 public class Users {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) //自動生成ID
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
 	private Integer userId;
-	
-	
+
 	@Column(name = "user_name", unique = true, nullable = false, length = 50)
 	private String userName;
-	
-//	@Column(name = "email",unique = true)
-//	private String email;
-	
+
 	@Column(name = "password", nullable = false)
 	private String password;
-	
+
 	@Column(name = "hash_salt")
 	private String hashSalt;
-	
-//	@Column(name = "complete")
-//	private Boolean complete;
-	
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<CountryPlan> countryPlans = new ArrayList<>();
-	
-	
+
+	// 一對多關係 - 一個用戶可以有多個國家
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<CountryList> countryLists = new ArrayList<>();
+
+	// 一對多關係 - 一個用戶可以有多個分類
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Category> categories = new ArrayList<>();
 }

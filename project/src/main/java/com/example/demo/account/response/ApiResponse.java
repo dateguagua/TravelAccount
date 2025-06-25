@@ -1,14 +1,14 @@
 package com.example.demo.account.response;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//建立server client在傳資料上的統一標準結構
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+//建立server client在傳資料上的統一標準結構
+
 public class ApiResponse<T> {
 	private int status;
 	private String message; //狀態

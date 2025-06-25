@@ -1,60 +1,43 @@
 package com.example.demo.account.service.Impl;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.account.mapper.UsersMapper;
 import com.example.demo.account.model.dto.UsersDTO;
 import com.example.demo.account.model.entity.Users;
 import com.example.demo.account.repository.UserRepository;
 import com.example.demo.account.service.UserService;
-import com.example.demo.account.util.HashUtil;
 
 @Service
-public class UserServiceImpl implements UserService{
-
-	@Autowired
-	private UserRepository userRepository;
-	
-	@Autowired
-	private UsersMapper usersMapper;
-	
-	@Override
-	public UsersDTO getUser(String username) {
-		Users users = userRepository.getUsers(username);
-		if(username == null) {
-			return null ;
-		}
-		return usersMapper.toDto(users);
-	}
-
-
-	@Override
-	public void addUser(String username, String password, String email) {
-		String salt = HashUtil.getSalt();
-		String passwordHash = HashUtil.getHash(password, salt) ;
-		Users users = Users.builder()
-			    .userName(username)
-			    .password(passwordHash)
-			    .hashSalt(salt)
-//			    .email(email)
-			    .build();
-
-		userRepository.save(users);
-		
-	}
-
-
-	@Override
-	public List<UsersDTO> findAllUser() {
-		return userRepository.findAll()
-				.stream()
-				.map(usersMapper::toDto)
-				.toList();
-	}
-
-
+public class UserServiceImpl implements UserService {
+    
+    @Autowired
+    private UserRepository userRepository;
+    
+    // 原有方法實作...
+    @Override
+    public List<UsersDTO> findAllUser() {
+        // 你的原有實作
+        return null; // 請填入你的實作
+    }
+    
+    @Override
+    public void addUser(String userName, String password) {
+        // 你的原有實作
+    }
+    
+    // 新增方法實作
+    @Override
+    public Users findUserByUserName(String userName) {
+        return userRepository.findByUserName(userName)
+                .orElseThrow(() -> new RuntimeException("找不到用戶：" + userName));
+    }
+    
+    @Override
+    public Users findUserById(Integer userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("找不到用戶：" + userId));
+    }
 }

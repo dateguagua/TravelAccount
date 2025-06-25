@@ -39,7 +39,7 @@ public class JourneyController {
 	}
 	
 	@GetMapping("/{journeyId}")
-	public ResponseEntity<ApiResponse<JourneyDTO>> getJourney(@PathVariable Integer journeyId){
+	public ResponseEntity<ApiResponse<JourneyDTO>> getJourneyById(@PathVariable Integer journeyId){
 		JourneyDTO journeyDTO = journeyService.getJourneyById(journeyId) ;
 		return ResponseEntity.ok(ApiResponse.success("查詢該行程成功", journeyDTO));
 	}

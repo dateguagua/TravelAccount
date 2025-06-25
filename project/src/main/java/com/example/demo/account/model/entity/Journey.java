@@ -43,7 +43,7 @@ public class Journey {
 	@Column(name = "memo")
 	private String memo;
 	
-	@JsonFormat(pattern = "yyyy-MM-dd")
+	//@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "time")
 	private LocalDate time;
 	
