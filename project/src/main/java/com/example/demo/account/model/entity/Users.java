@@ -48,4 +48,7 @@ public class Users {
 	// 一對多關係 - 一個用戶可以有多個分類
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Category> categories = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<SaveMoney> saveMoneys = new ArrayList<>();
 }
